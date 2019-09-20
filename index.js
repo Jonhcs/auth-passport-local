@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const methodOverride = require('method-override')
 const passport = require('passport')
-const mongoose = require('mongoose')
+const MongoClient = require('mongoose')
 const app = express()
 
 //Utilizado para uma auth Basic
@@ -21,7 +21,8 @@ app.set('views', path.join(__dirname, 'src/view'))
 
 require('./src/index')(app)
 
-mongoose.connect('mongodb://localhost:27017/auth')
-app.listen(900, () => {
+MongoClient.connect("mongodb://localhost:27017/auth", {useNewUrlParser: true, useUnifiedTopology: true})
+MongoClient.Promise = global.Promise
+app.listen(9000, () => {
     console.log('Start express')
 })
