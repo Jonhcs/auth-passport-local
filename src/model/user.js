@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt-nodejs')
 const mongoose = require('mongoose')
 require('mongoose-type-email')
 
@@ -20,5 +21,10 @@ const User = new mongoose.Schema({
     }
 
 })
+
+User.methods.genHash = (password) => {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(7), null)
+    
+}
 
 module.exports = mongoose.model('User', User)

@@ -23,6 +23,6 @@ require('./src/index')(app)
 
 MongoClient.connect("mongodb://localhost:27017/auth", {useNewUrlParser: true, useUnifiedTopology: true})
 MongoClient.Promise = global.Promise
-app.listen(9000, () => {
+app.listen(3000, () => {
     console.log('Start express')
 })
