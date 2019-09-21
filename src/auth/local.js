@@ -1,4 +1,4 @@
-const LOcalStrategy = require('passport-local')
+const LocalStrategy = require('passport-local')
 const User = require('./../model/user')
 
 module.exports = (passport) => {
@@ -14,7 +14,7 @@ module.exports = (passport) => {
             .catch(err => cb(err, {}))
     })
 
-    passport.use('local-signup', new LOcalStrategy({
+    passport.use('local-signup', new LocalStrategy({
 
         userameField: 'username',
         passwordField: 'password',
@@ -47,21 +47,21 @@ module.exports = (passport) => {
             })
     }))
 
-    passport.use('local-signin', new LOcalStrategy({
-        userameField: 'username',
+    passport.use('local-signin', new LocalStrategy({
+        usernameField: 'username',
         passwordField: 'password',
         passReqToCallback: true
     },
     
         function(req, username, password, cb) {
             User    
-                .findOne({username})
+                .findOne({ username })
                 .then((user) => {
                     if (!user) {
                         return cb(null, false)
                     }
 
-                    user.validate(password, (err,result) => {
+                    user.valid(password, (err,result) => {
                         if(!result || err) {
                             return cb(null, false)
 
